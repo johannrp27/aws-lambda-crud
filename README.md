@@ -11,6 +11,8 @@ These instructions will help you deploy the project and start using the API.
 
 [Serverless Framework](https://www.serverless.com/) installed (npm install -g serverless)
 
+[AWS Cli](https://docs.aws.amazon.com/es_es/cli/latest/userguide/getting-started-install.html) installed
+
 ### Installing
 1. Clone the repository:
 ```bash
