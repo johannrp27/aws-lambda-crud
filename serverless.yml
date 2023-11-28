@@ -1,0 +1,83 @@
+service: crud-users
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: dynamodb:*
+          Resource: arn:aws:dynamodb:us-east-1:557611218157:table/usersPractitioner
+
+plugins:
+  - serverless-dynamodb
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - "!*/**"
+    - "src/getUser/handler.js"
+    - "src/getAllUsers/handler.js"
+    - "src/createUser/handler.js"
+    - "src/updateUser/handler.js"
+    - "src/deleteUser/handler.js"
+    - "src/package.json"
+
+functions:
+  get-all:
+    handler: src/getAllUsers/handler.getUsers
+    events:
+      - http:
+          path: users
+          method: GET
+  get-user:
+    handler: src/getUser/handler.getUser
+    events:
+      - http:
+          path: users/{id}
+          method: GET
+  create-user:
+    handler: src/createUser/handler.createUser
+    events:
+      - http:
+          path: users
+          method: POST
+  update-user:
+    handler: src/updateUser/handler.updateUser
+    events:
+      - http:
+          path: users/{id}
+          method: PATCH
+  delete-user:
+    handler: src/deleteUser/handler.deleteUser
+    events:
+      - http:
+          path: users/{id}
+          method: DELETE
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: usersPractitioner
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

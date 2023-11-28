@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base"
+  ],
+  "rules": {
+    "react/require-default-props": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "state"
+        ]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "new-cap": "off"
+  }
+}
