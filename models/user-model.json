@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "User",
+  "type": "object",
+  "required": [
+    "name",
+    "email"
+  ],
+  "properties": {
+    "name": {
+      "description": "User name",
+      "type": "string",
+      "default": ""
+    },
+    "age": {
+      "description": "User age",
+      "type": "number",
+      "minimum": 18,
+      "default": ""
+    },
+    "phone": {
+      "description": "User phone",
+      "type": "number",
+      "default": ""
+    },
+    "email": {
+      "description": "User email",
+      "type": "string",
+      "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",
+      "default": ""
+    }
+  }
+}

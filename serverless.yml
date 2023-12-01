@@ -44,18 +44,31 @@ functions:
       - http:
           path: users
           method: POST
+          request:
+            schemas:
+              application/json: ${file(models/user-model.json)}
   update-user:
     handler: src/updateUser/handler.updateUser
     events:
       - http:
           path: users/{id}
           method: PATCH
+          request:
+            parameters:
+                paths:
+                  id: true
+            schemas:
+              application/json: ${file(models/user-model.json)}
   delete-user:
     handler: src/deleteUser/handler.deleteUser
     events:
       - http:
           path: users/{id}
           method: DELETE
+          request:
+            parameters:
+                paths:
+                  id: true
 
 custom:
   dynamodb:
